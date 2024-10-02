@@ -9,11 +9,13 @@ import { editorTheme } from "./config/editor-themes";
 import { HeadingNode } from "@lexical/rich-text";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { $convertFromMarkdownString } from "@lexical/markdown";
 import "./editor.css";
 
 const placeholder = "Enter some rich text...";
 
 export default function Editor(): JSX.Element {
+  const text = `# Welcome to Lexical Rich Text Editor`;
   const editorConfig = {
     namespace: "Lexical Editor",
     onError(error: Error) {
@@ -21,6 +23,7 @@ export default function Editor(): JSX.Element {
     },
     theme: editorTheme,
     nodes: [HeadingNode, ListNode, ListItemNode],
+    editorState: () => $convertFromMarkdownString(text, undefined),
   };
   return (
     <LexicalComposer initialConfig={editorConfig}>
