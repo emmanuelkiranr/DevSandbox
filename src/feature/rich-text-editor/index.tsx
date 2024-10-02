@@ -6,6 +6,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { editorTheme } from "./config/editor-themes";
+import { HeadingNode } from "@lexical/rich-text";
 import "./editor.css";
 
 const placeholder = "Enter some rich text...";
@@ -17,7 +18,7 @@ export default function Editor(): JSX.Element {
       throw error;
     },
     theme: editorTheme,
-    nodes: [],
+    nodes: [HeadingNode],
   };
   return (
     <LexicalComposer initialConfig={editorConfig}>
