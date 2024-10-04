@@ -1,23 +1,22 @@
-import { LexicalEditor } from "lexical";
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
   // REMOVE_LIST_COMMAND
 } from "@lexical/list";
 import SvgIcon from "../../../assets/Icons";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 type ListTag = "ul" | "ol";
 
-export default function ListElementPlugin(props: {
-  editor: LexicalEditor;
-}): JSX.Element {
+export default function ListElementPlugin(): JSX.Element {
+  const [editor] = useLexicalComposerContext();
   const listTags: ListTag[] = ["ul", "ol"];
   const handleListClick = (tag: ListTag) => {
     if (tag === "ol") {
-      props.editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
       return;
     }
-    props.editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
   };
 
   return (

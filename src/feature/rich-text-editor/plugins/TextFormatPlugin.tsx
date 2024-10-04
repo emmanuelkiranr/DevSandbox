@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  LexicalEditor,
   $getSelection,
   $isRangeSelection,
   SELECTION_CHANGE_COMMAND,
@@ -9,37 +8,41 @@ import {
 import { mergeRegister } from "@lexical/utils";
 import { useState, useCallback, useEffect } from "react";
 import SvgIcon from "../../../assets/Icons";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 const LowPriority = 1;
 
-export default function TextFormatPlugin(props: { editor: LexicalEditor }) {
+export default function TextFormatPlugin() {
+  const [editor] = useLexicalComposerContext();
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
-  // subscript and superscript to add
+  const [isSuperscript, setIsSupserscript] = useState(false);
+  const [isSubScript, setIsSubscript] = useState(false);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
-      // Update text format
       setIsBold(selection.hasFormat("bold"));
       setIsItalic(selection.hasFormat("italic"));
       setIsUnderline(selection.hasFormat("underline"));
       setIsStrikethrough(selection.hasFormat("strikethrough"));
       setIsCode(selection.hasFormat("code"));
+      setIsSupserscript(selection.hasFormat("superscript"));
+      setIsSubscript(selection.hasFormat("subscript"));
     }
   }, []);
 
   useEffect(() => {
     return mergeRegister(
-      props.editor.registerUpdateListener(({ editorState }) => {
+      editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
           $updateToolbar();
         });
       }),
-      props.editor.registerCommand(
+      editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
         (_payload, _newEditor) => {
           $updateToolbar();
@@ -48,13 +51,13 @@ export default function TextFormatPlugin(props: { editor: LexicalEditor }) {
         LowPriority
       )
     );
-  }, [props.editor, $updateToolbar]);
+  }, [editor, $updateToolbar]);
 
   return (
     <>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
         }}
         className={"toolbar-item spaced " + (isBold ? "active" : "")}
         aria-label="Format Bold"
@@ -63,7 +66,7 @@ export default function TextFormatPlugin(props: { editor: LexicalEditor }) {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
         }}
         className={"toolbar-item spaced " + (isItalic ? "active" : "")}
         aria-label="Format Italics"
@@ -72,7 +75,7 @@ export default function TextFormatPlugin(props: { editor: LexicalEditor }) {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
         }}
         className={"toolbar-item spaced " + (isUnderline ? "active" : "")}
         aria-label="Format Underline"
@@ -81,7 +84,7 @@ export default function TextFormatPlugin(props: { editor: LexicalEditor }) {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
         }}
         className={"toolbar-item spaced " + (isStrikethrough ? "active" : "")}
         aria-label="Format Strikethrough"
@@ -90,12 +93,30 @@ export default function TextFormatPlugin(props: { editor: LexicalEditor }) {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
         }}
         className={"toolbar-item spaced " + (isCode ? "active" : "")}
         aria-label="Format Code"
       >
         <SvgIcon name="code" />
+      </button>
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "superscript");
+        }}
+        className={"toolbar-item spaced " + (isSuperscript ? "active" : "")}
+        aria-label="Format Superscript"
+      >
+        <SvgIcon name="superscript" />
+      </button>
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "subscript");
+        }}
+        className={"toolbar-item spaced " + (isSubScript ? "active" : "")}
+        aria-label="Format Subscript"
+      >
+        <SvgIcon name="subscript" />
       </button>
     </>
   );

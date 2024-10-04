@@ -1,14 +1,14 @@
-import { LexicalEditor, FORMAT_ELEMENT_COMMAND } from "lexical";
+import { FORMAT_ELEMENT_COMMAND } from "lexical";
 import SvgIcon from "../../../assets/Icons";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
-export default function ElementFormatPlugin(props: {
-  editor: LexicalEditor;
-}): JSX.Element {
+export default function ElementFormatPlugin(): JSX.Element {
+  const [editor] = useLexicalComposerContext();
   return (
     <>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
         }}
         className="toolbar-item spaced"
         aria-label="Left Align"
@@ -17,7 +17,7 @@ export default function ElementFormatPlugin(props: {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
         }}
         className="toolbar-item spaced"
         aria-label="Center Align"
@@ -26,7 +26,7 @@ export default function ElementFormatPlugin(props: {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
         }}
         className="toolbar-item spaced"
         aria-label="Right Align"
@@ -35,7 +35,7 @@ export default function ElementFormatPlugin(props: {
       </button>
       <button
         onClick={() => {
-          props.editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
         }}
         className="toolbar-item"
         aria-label="Justify Align"

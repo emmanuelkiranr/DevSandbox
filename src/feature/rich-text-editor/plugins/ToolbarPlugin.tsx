@@ -1,8 +1,8 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import ElementFormatPlugin from "../components/ElementFormatPlugin";
-import TextFormatPlugin from "../components/TextFormatPlugin";
-import HeadingPlugin from "../components/HeadingPlugin";
-import ListElementPlugin from "../components/ListElementPlugin";
+import ElementFormatPlugin from "./ElementFormatPlugin";
+import TextFormatPlugin from "./TextFormatPlugin";
+import HeadingPlugin from "./HeadingPlugin";
+import ListElementPlugin from "./ListElementPlugin";
 import { $convertToMarkdownString, TRANSFORMERS } from "@lexical/markdown";
 
 function Divider() {
@@ -20,13 +20,13 @@ export default function ToolbarPlugin() {
   return (
     <>
       <div className="toolbar">
-        <HeadingPlugin editor={editor} />
+        <HeadingPlugin />
         <Divider />
-        <TextFormatPlugin editor={editor} />
+        <TextFormatPlugin />
         <Divider />
-        <ListElementPlugin editor={editor} />
+        <ListElementPlugin />
         <Divider />
-        <ElementFormatPlugin editor={editor} />
+        <ElementFormatPlugin />
       </div>
       <button onClick={handleSubmit}>Markdown</button>
     </>
