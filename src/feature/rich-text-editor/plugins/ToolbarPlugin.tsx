@@ -1,9 +1,9 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import ElementFormatPlugin from "./ElementFormatPlugin";
 import TextFormatPlugin from "./TextFormatPlugin";
-import HeadingPlugin from "./HeadingPlugin";
 import ListElementPlugin from "./ListElementPlugin";
 import { $convertToMarkdownString, TRANSFORMERS } from "@lexical/markdown";
+import BlockElementsDropDown from "./components/BlockElementsDropDown";
 
 function Divider() {
   return <div className="divider" />;
@@ -20,7 +20,7 @@ export default function ToolbarPlugin() {
   return (
     <>
       <div className="toolbar">
-        <HeadingPlugin />
+        <BlockElementsDropDown />
         <Divider />
         <TextFormatPlugin />
         <Divider />
