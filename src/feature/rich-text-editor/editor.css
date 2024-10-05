@@ -1,41 +1,3 @@
-body {
-  margin: 0;
-  background: #eee;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",
-    sans-serif;
-  font-weight: 500;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.other h2 {
-  font-size: 18px;
-  color: #444;
-  margin-bottom: 7px;
-}
-
-.other a {
-  color: #777;
-  text-decoration: underline;
-  font-size: 14px;
-}
-
-.other ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-
-.App {
-  font-family: sans-serif;
-  text-align: center;
-}
-
-h1 {
-  font-size: 24px;
-  color: #333;
-}
-
 .ltr {
   text-align: left;
 }
@@ -45,16 +7,16 @@ h1 {
 }
 
 .editor-container {
-  margin: 20px auto 20px auto;
-  border-radius: 2px;
+  border: 1px solid gray;
+  border-radius: 3px;
   max-width: 600px;
+  height: 280px;
   color: #000;
   position: relative;
-  line-height: 20px;
-  font-weight: 400;
+  line-height: 1.2;
+  /* font-weight: 400; */
   text-align: left;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  /* overflow-y: scroll; */
 }
 
 .editor-inner {
@@ -65,7 +27,7 @@ h1 {
 .editor-input {
   min-height: 150px;
   resize: none;
-  font-size: 15px;
+  font-size: 1.2rem;
   caret-color: rgb(5, 5, 5);
   position: relative;
   tab-size: 1;
@@ -81,7 +43,7 @@ h1 {
   text-overflow: ellipsis;
   top: 15px;
   left: 10px;
-  font-size: 15px;
+  font-size: 1.2rem;
   user-select: none;
   display: inline-block;
   pointer-events: none;
@@ -108,10 +70,21 @@ h1 {
 }
 
 .editor-textCode {
-  background-color: rgb(240, 242, 245);
+  background-color: rgba(163, 177, 204, 0.3);
   padding: 1px 0.25rem;
   font-family: Menlo, Consolas, Monaco, monospace;
   font-size: 94%;
+  border-radius: 5px;
+}
+
+.editor-textSuperscript {
+  font-size: 0.8em;
+  vertical-align: super;
+}
+
+.editor-textSubscript {
+  font-size: 0.8em;
+  vertical-align: sub;
 }
 
 .editor-link {
@@ -119,29 +92,13 @@ h1 {
   text-decoration: none;
 }
 
-.tree-view-output {
-  display: block;
-  background: #222;
-  color: #fff;
-  padding: 5px;
-  font-size: 12px;
-  white-space: pre-wrap;
-  margin: 1px auto 10px auto;
-  max-height: 250px;
-  position: relative;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  overflow: auto;
-  line-height: 14px;
-}
-
 .editor-code {
   background-color: rgb(240, 242, 245);
   font-family: Menlo, Consolas, Monaco, monospace;
   display: block;
-  padding: 8px 8px 8px 52px;
+  padding: 8px 8px 8px 10px;
   line-height: 1.53;
-  font-size: 13px;
+  font-size: 1.2rem;
   margin: 0;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -151,7 +108,7 @@ h1 {
   position: relative;
 }
 
-.editor-code:before {
+/* .editor-code:before {
   content: attr(data-gutter);
   position: absolute;
   background-color: #eee;
@@ -160,10 +117,9 @@ h1 {
   border-right: 1px solid #ccc;
   padding: 8px;
   color: #777;
-  white-space: pre-wrap;
-  text-align: right;
   min-width: 25px;
-}
+} */
+
 .editor-code:after {
   content: attr(data-highlight-language);
   top: 0;
@@ -251,12 +207,22 @@ h1 {
   padding: 0;
   margin: 0;
   margin-left: 16px;
+  list-style: decimal;
+}
+
+.editor-list-ol > li {
+  list-style: decimal;
 }
 
 .editor-list-ul {
   padding: 0;
   margin: 0;
   margin-left: 16px;
+  list-style: disc;
+}
+
+.editor-list-ul > li {
+  list-style: disc;
 }
 
 .editor-listItem {
@@ -276,62 +242,23 @@ pre::-webkit-scrollbar-thumb {
   background: #999;
 }
 
-.debug-timetravel-panel {
-  overflow: hidden;
-  padding: 0 0 10px 0;
-  margin: auto;
-  display: flex;
-}
-
-.debug-timetravel-panel-slider {
-  padding: 0;
-  flex: 8;
-}
-
-.debug-timetravel-panel-button {
-  padding: 0;
-  border: 0;
-  background: none;
-  flex: 1;
-  color: #fff;
-  font-size: 12px;
-}
-
-.debug-timetravel-panel-button:hover {
-  text-decoration: underline;
-}
-
-.debug-timetravel-button {
-  border: 0;
-  padding: 0;
-  font-size: 12px;
-  top: 10px;
-  right: 15px;
-  position: absolute;
-  background: none;
-  color: #fff;
-}
-
-.debug-timetravel-button:hover {
-  text-decoration: underline;
-}
-
 .toolbar {
   display: flex;
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 1px solid gray;
   vertical-align: middle;
 }
 
 .toolbar button.toolbar-item {
   border: 0;
   display: flex;
+  align-items: center;
   background: none;
-  border-radius: 10px;
-  padding: 8px;
+  border-radius: 5px;
+  /* padding: 8px; */
   cursor: pointer;
   vertical-align: middle;
 }
@@ -360,7 +287,7 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .toolbar button.toolbar-item.active {
-  background-color: rgba(223, 232, 250, 0.3);
+  background-color: rgba(163, 177, 204, 0.3);
 }
 
 .toolbar button.toolbar-item.active i {
