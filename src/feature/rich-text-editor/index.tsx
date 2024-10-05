@@ -10,6 +10,8 @@ import { HeadingNode } from "@lexical/rich-text";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { $convertFromMarkdownString } from "@lexical/markdown";
+import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
+import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import "./editor.css";
 
 const placeholder = "Enter some rich text...";
@@ -22,7 +24,7 @@ export default function Editor(): JSX.Element {
       throw error;
     },
     theme: editorTheme,
-    nodes: [HeadingNode, ListNode, ListItemNode],
+    nodes: [HeadingNode, ListNode, ListItemNode, CodeNode, CodeHighlightNode],
     editorState: () => $convertFromMarkdownString(text, undefined),
   };
   return (
@@ -30,6 +32,7 @@ export default function Editor(): JSX.Element {
       <div className="editor-container">
         <ToolbarPlugin />
         <ListPlugin />
+        <CodeHighlightPlugin />
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={

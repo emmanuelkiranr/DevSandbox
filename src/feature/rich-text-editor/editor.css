@@ -27,7 +27,7 @@
 .editor-input {
   min-height: 150px;
   resize: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   caret-color: rgb(5, 5, 5);
   position: relative;
   tab-size: 1;
@@ -43,7 +43,7 @@
   text-overflow: ellipsis;
   top: 15px;
   left: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   user-select: none;
   display: inline-block;
   pointer-events: none;
@@ -98,7 +98,7 @@
   display: block;
   padding: 8px 8px 8px 10px;
   line-height: 1.53;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0;
   margin-top: 8px;
   margin-bottom: 8px;

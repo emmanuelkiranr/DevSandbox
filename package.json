@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@lexical/code": "^0.18.0",
     "@lexical/list": "^0.18.0",
     "@lexical/markdown": "^0.18.0",
     "@lexical/react": "^0.18.0",

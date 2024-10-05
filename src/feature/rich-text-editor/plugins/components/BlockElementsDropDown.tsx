@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { $createCodeNode } from "@lexical/code";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createHeadingNode, $isHeadingNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
@@ -77,7 +78,25 @@ export default function BlockElementsDropDown() {
         }
       });
     } else if (tag === "code") {
-      // todo
+      editor.update(() => {
+        let selection = $getSelection();
+        if (selection !== null) {
+          if (selection.isCollapsed()) {
+            // isCollapsed means cursor is in a empty line / no text selected
+            $setBlocksType(selection, () => $createCodeNode());
+          } else {
+            const textContent = selection.getTextContent();
+            const codeNode = $createCodeNode();
+            selection.insertNodes([codeNode]);
+            // updating the selection with state
+            selection = $getSelection();
+            if ($isRangeSelection(selection)) {
+              // text is inserted to codeBlock
+              selection.insertRawText(textContent);
+            }
+          }
+        }
+      });
     } else {
       editor.update(() => {
         const selection = $getSelection();
