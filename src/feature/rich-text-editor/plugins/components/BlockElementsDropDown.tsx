@@ -11,53 +11,11 @@ import {
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { blockElements } from "../../config/dropdown-elts";
 
 type HeadingTags = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type BlockElementTags = "code" | "paragraph";
 type DropDownElements = HeadingTags | BlockElementTags;
-
-const blockElements = [
-  {
-    id: 1,
-    lable: "Normal",
-    value: "paragraph",
-  },
-  {
-    id: 2,
-    lable: "Heading 1",
-    value: "h1",
-  },
-  {
-    id: 3,
-    lable: "Heading 2",
-    value: "h2",
-  },
-  {
-    id: 4,
-    lable: "Heading 3",
-    value: "h3",
-  },
-  {
-    id: 5,
-    lable: "Heading 4",
-    value: "h4",
-  },
-  {
-    id: 6,
-    lable: "Heading 5",
-    value: "h5",
-  },
-  {
-    id: 7,
-    lable: "Heading 6",
-    value: "h6",
-  },
-  {
-    id: 8,
-    lable: "Code Block",
-    value: "code",
-  },
-];
 
 const LowPriority = 1;
 
@@ -67,7 +25,6 @@ export default function BlockElementsDropDown() {
     useState<DropDownElements>("paragraph");
 
   const handleBlockElementChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value);
     const tag = event.target.value as DropDownElements;
 
     if (tag === "paragraph") {
