@@ -6,33 +6,46 @@
   text-align: right;
 }
 
+body {
+  height: 100vh;
+  border: 1px solid red;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .editor-container {
-  border: 1px solid gray;
-  border-radius: 3px;
-  max-width: 600px;
-  height: 280px;
-  color: #000;
-  position: relative;
-  line-height: 1.2;
-  /* font-weight: 400; */
+  outline: 1px solid red;
+  width: 100%;
+  /* width: min(100% - 3rem, 800px); */
   text-align: left;
-  /* overflow-y: scroll; */
 }
 
 .editor-inner {
   background: #fff;
   position: relative;
+  border-radius: 0 0 10px 10px;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.block-elements {
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid #d2d1d1;
+  padding: 5px;
 }
 
 .editor-input {
-  min-height: 150px;
+  line-height: 1;
   resize: none;
   font-size: 1rem;
   caret-color: rgb(5, 5, 5);
   position: relative;
   tab-size: 1;
   outline: 0;
-  padding: 15px 10px;
+  padding: 10px 15px;
   caret-color: #444;
 }
 
@@ -41,8 +54,8 @@
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
-  top: 15px;
-  left: 10px;
+  top: 8px;
+  left: 15px;
   font-size: 1rem;
   user-select: none;
   display: inline-block;
@@ -244,11 +257,10 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar {
   display: flex;
-  margin-bottom: 1px;
+  border-bottom: 1px solid #eee;
   background: #fff;
-  padding: 4px;
-  border-radius: 3px 3px 0 0;
-  border-bottom: 1px solid gray;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
   vertical-align: middle;
 }
 

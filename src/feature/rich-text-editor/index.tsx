@@ -9,11 +9,7 @@ import { editorTheme } from "./config/editor-themes";
 import { HeadingNode } from "@lexical/rich-text";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import {
-  $convertFromMarkdownString,
-  $convertToMarkdownString,
-  TRANSFORMERS,
-} from "@lexical/markdown";
+import { $convertToMarkdownString, TRANSFORMERS } from "@lexical/markdown";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { useState } from "react";
@@ -24,7 +20,6 @@ const placeholder = "Enter some rich text...";
 
 export default function Editor(): JSX.Element {
   const [editor, setEditor] = useState<LexicalEditor>();
-  const text = `# Welcome to Lexical Rich Text Editor`;
   const editorConfig = {
     namespace: "Lexical Editor",
     onError(error: Error) {
@@ -32,7 +27,7 @@ export default function Editor(): JSX.Element {
     },
     theme: editorTheme,
     nodes: [HeadingNode, ListNode, ListItemNode, CodeNode, CodeHighlightNode],
-    editorState: () => $convertFromMarkdownString(text, undefined),
+    // editorState: () => $convertFromMarkdownString(text, undefined),
   };
 
   const handleSubmit = () => {
@@ -65,7 +60,9 @@ export default function Editor(): JSX.Element {
           <AutoFocusPlugin />
         </div>
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit} className="btn-primary">
+        Submit
+      </button>
     </LexicalComposer>
   );
 }

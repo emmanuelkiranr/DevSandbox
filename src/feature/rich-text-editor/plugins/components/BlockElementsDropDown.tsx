@@ -108,6 +108,7 @@ export default function BlockElementsDropDown() {
     <select
       name="block-elements"
       id="block-elements"
+      className="block-elements"
       value={selectedBlock}
       onChange={handleBlockElementChange}
     >
