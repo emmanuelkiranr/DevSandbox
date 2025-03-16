@@ -1,8 +1,8 @@
-import "./App.css";
-import Editor from "./feature/rich-text-editor";
+import './App.css'
+import Editor from './feature/rich-text-editor'
 
 function App() {
-  return <Editor />;
+  return <Editor />
 }
 
-export default App;
+export default App

@@ -1,114 +1,114 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { $createCodeNode } from "@lexical/code";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createHeadingNode, $isHeadingNode } from "@lexical/rich-text";
-import { $setBlocksType } from "@lexical/selection";
-import { mergeRegister } from "@lexical/utils";
+import { $createCodeNode } from '@lexical/code'
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { $createHeadingNode, $isHeadingNode } from '@lexical/rich-text'
+import { $setBlocksType } from '@lexical/selection'
+import { mergeRegister } from '@lexical/utils'
 import {
   $createParagraphNode,
   $getSelection,
   $isRangeSelection,
-  SELECTION_CHANGE_COMMAND,
-} from "lexical";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { blockElements } from "../../config/dropdown-elts";
+  SELECTION_CHANGE_COMMAND
+} from 'lexical'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { blockElements } from '../../config/dropdown-elts'
 
-type HeadingTags = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-type BlockElementTags = "code" | "paragraph";
-type DropDownElements = HeadingTags | BlockElementTags;
+type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+type BlockElementTags = 'code' | 'paragraph'
+type DropDownElements = HeadingTags | BlockElementTags
 
-const LowPriority = 1;
+const LowPriority = 1
 
 export default function BlockElementsDropDown() {
-  const [editor] = useLexicalComposerContext();
+  const [editor] = useLexicalComposerContext()
   const [selectedBlock, setSelectedBlock] =
-    useState<DropDownElements>("paragraph");
+    useState<DropDownElements>('paragraph')
 
   const handleBlockElementChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const tag = event.target.value as DropDownElements;
+    const tag = event.target.value as DropDownElements
 
-    if (tag === "paragraph") {
+    if (tag === 'paragraph') {
       editor.update(() => {
-        const selection = $getSelection();
+        const selection = $getSelection()
         if ($isRangeSelection(selection)) {
-          $setBlocksType(selection, () => $createParagraphNode());
+          $setBlocksType(selection, () => $createParagraphNode())
         }
-      });
-    } else if (tag === "code") {
+      })
+    } else if (tag === 'code') {
       editor.update(() => {
-        let selection = $getSelection();
+        let selection = $getSelection()
         if (selection !== null) {
           if (selection.isCollapsed()) {
             // isCollapsed means cursor is in a empty line / no text selected
-            $setBlocksType(selection, () => $createCodeNode());
+            $setBlocksType(selection, () => $createCodeNode())
           } else {
-            const textContent = selection.getTextContent();
-            const codeNode = $createCodeNode();
-            selection.insertNodes([codeNode]);
+            const textContent = selection.getTextContent()
+            const codeNode = $createCodeNode()
+            selection.insertNodes([codeNode])
             // updating the selection with state
-            selection = $getSelection();
+            selection = $getSelection()
             if ($isRangeSelection(selection)) {
               // text is inserted to codeBlock
-              selection.insertRawText(textContent);
+              selection.insertRawText(textContent)
             }
           }
         }
-      });
+      })
     } else {
       editor.update(() => {
-        const selection = $getSelection();
+        const selection = $getSelection()
         if (selection) {
-          $setBlocksType(selection, () => $createHeadingNode(tag));
+          $setBlocksType(selection, () => $createHeadingNode(tag))
         }
-      });
+      })
     }
-  };
+  }
 
   const $updateToolbar = useCallback(() => {
-    const selection = $getSelection();
+    const selection = $getSelection()
 
     if ($isRangeSelection(selection)) {
-      const anchorNode = selection.anchor.getNode();
+      const anchorNode = selection.anchor.getNode()
       const element =
-        anchorNode.getKey() === "root"
+        anchorNode.getKey() === 'root'
           ? anchorNode
-          : anchorNode.getTopLevelElementOrThrow();
+          : anchorNode.getTopLevelElementOrThrow()
 
-      const elementKey = element.getKey();
-      const elementDOM = editor.getElementByKey(elementKey);
+      const elementKey = element.getKey()
+      const elementDOM = editor.getElementByKey(elementKey)
 
       if (elementDOM !== null) {
         const type = $isHeadingNode(element)
           ? (element.getTag() as HeadingTags)
-          : (element.getType() as BlockElementTags);
-        setSelectedBlock(type);
+          : (element.getType() as BlockElementTags)
+        setSelectedBlock(type)
       }
     }
-  }, [editor]);
+  }, [editor])
 
   useEffect(() => {
     return mergeRegister(
       editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
-          $updateToolbar();
-        });
+          $updateToolbar()
+        })
       }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
         (_payload, _newEditor) => {
-          $updateToolbar();
-          return false;
+          $updateToolbar()
+          return false
         },
         LowPriority
       )
-    );
-  }, [editor, $updateToolbar]);
+    )
+  }, [editor, $updateToolbar])
 
   return (
     <select
-      name="block-elements"
-      id="block-elements"
-      className="block-elements"
+      name='block-elements'
+      id='block-elements'
+      className='block-elements'
       value={selectedBlock}
       onChange={handleBlockElementChange}
     >
@@ -118,5 +118,5 @@ export default function BlockElementsDropDown() {
         </option>
       ))}
     </select>
-  );
+  )
 }
